@@ -1,5 +1,10 @@
 from distutils.core import setup
 
+def read_requirements():
+    """Read the requirements.txt file and return a list of dependencies."""
+    with open("requirements.txt", "r", encoding="utf-8") as fh:
+        return fh.read().splitlines()
+
 setup(name='MolScribe',
       version='1.1.1',
       description='MolScribe',
@@ -11,15 +16,5 @@ setup(name='MolScribe',
       package_data={'molscribe': ['vocab/*']},
       python_requires='>=3.7',
       setup_requires=['numpy'],
-      install_requires=[
-          "numpy",
-          "torch>=1.11.0",
-          "pandas",
-          "matplotlib",
-          "opencv-python>=4.5.5.64",
-          "SmilesPE==0.0.3",
-          "OpenNMT-py==2.2.0",
-          "rdkit>=2024.3.5",
-          "albumentations==1.1.0",
-          "timm==0.4.12"
-      ])
+      install_requires=read_requirements(),
+      )
