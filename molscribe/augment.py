@@ -6,48 +6,6 @@ import math
 import random
 import numpy as np
 
-# from albucore import maybe_process_in_chunks
-# from albumentations.augmentations.utils import angle_2pi_range
-# @angle_2pi_range
-# def keypoint_shift_scale_rotate(keypoint, angle, scale, dx, dy, rows, cols, **params):
-#     (
-#         x,
-#         y,
-#         a,
-#         s,
-#     ) = keypoint[:4]
-#     height, width = rows, cols
-#     center = (width / 2, height / 2)
-#     matrix = cv2.getRotationMatrix2D(center, angle, scale)
-#     matrix[0, 2] += dx * width
-#     matrix[1, 2] += dy * height
-#
-#     x, y = cv2.transform(np.array([[[x, y]]]), matrix).squeeze()
-#     angle = a + math.radians(angle)
-#     scale = s * scale
-#
-#     return x, y, angle, scale
-#
-#
-# def safe_rotate_enlarged_img_size(angle: float, rows: int, cols: int):
-#
-#     deg_angle = abs(angle)
-#
-#     # The rotation angle
-#     angle = np.deg2rad(deg_angle % 90)
-#
-#     # The width of the frame to contain the rotated image
-#     r_cols = cols * np.cos(angle) + rows * np.sin(angle)
-#
-#     # The height of the frame to contain the rotated image
-#     r_rows = cols * np.sin(angle) + rows * np.cos(angle)
-#
-#     # The above calculations work as is for 0<90 degrees, and for 90<180 the cols and rows are flipped
-#     if deg_angle > 90:
-#         return int(r_cols), int(r_rows)
-#     else:
-#         return int(r_rows), int(r_cols)
-
 def safe_rotate(
     img: np.ndarray,
     angle: int = 0,
