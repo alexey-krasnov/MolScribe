@@ -1,6 +1,4 @@
 import albumentations as A
-# from albucore import maybe_process_in_chunks
-# from albumentations.augmentations.utils import angle_2pi_range
 from albumentations.augmentations.geometric.functional import safe_rotate_enlarged_img_size, _maybe_process_in_chunks, \
     keypoint_rotate
 import cv2
@@ -8,7 +6,8 @@ import math
 import random
 import numpy as np
 
-
+# from albucore import maybe_process_in_chunks
+# from albumentations.augmentations.utils import angle_2pi_range
 # @angle_2pi_range
 # def keypoint_shift_scale_rotate(keypoint, angle, scale, dx, dy, rows, cols, **params):
 #     (
