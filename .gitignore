@@ -11,3 +11,4 @@ tmp/
 *.png
 **/.DS_Store
 *.egg-info
+build/
