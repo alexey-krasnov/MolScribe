@@ -42,6 +42,9 @@ class MolScribe:
         self.encoder, self.decoder = self._get_model(args, self.tokenizer, self.device, model_states)
         self.transform = get_transforms(args.input_size, augment=False)
         self.num_workers = num_workers
+        # MPS-specific optimizations
+        self.is_mps = str(device).startswith('mps')
+        self.optimal_batch_size = 32 if self.is_mps else 16
 
     def _get_args(self, args_states=None):
         parser = argparse.ArgumentParser()
@@ -91,7 +94,13 @@ class MolScribe:
         decoder.eval()
         return encoder, decoder
 
-    def predict_images(self, input_images: List, return_atoms_bonds=False, return_confidence=False, batch_size=16):
+    def predict_images(self, input_images: List, return_atoms_bonds=False, return_confidence=False, batch_size=None):
+        """
+         Optimized version of predict_images with better MPS performance
+         """
+        if batch_size is None:
+            batch_size = self.optimal_batch_size
+
         device = self.device
         predictions = []
         self.decoder.compute_confidence = return_confidence
