@@ -12,4 +12,4 @@ rdkit>=2024.3.5
 albumentations==1.1.0
 timm>=0.4.12,<=0.5.4
 # Only this version of transformers are compatible with timm
-transformers>=4.5.1,<=4.52.4
+transformers>=4.47.0,<=4.52.4
