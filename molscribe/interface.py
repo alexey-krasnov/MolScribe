@@ -114,7 +114,9 @@ class MolScribe:
                 batch_predictions = self.decoder.decode(features, hiddens)
             predictions += batch_predictions
 
-        smiles = [pred['chartok_coords']['smiles'] for pred in predictions]
+        return self.convert_graph_to_output(predictions, input_images, return_confidence, return_atoms_bonds)
+
+    def convert_graph_to_output(self, predictions, input_images, return_confidence=False, return_atoms_bonds=False):
         node_coords = [pred['chartok_coords']['coords'] for pred in predictions]
         node_symbols = [pred['chartok_coords']['symbols'] for pred in predictions]
         edges = [pred['edges'] for pred in predictions]
