@@ -31,7 +31,7 @@ class MolScribe:
         MolScribe Interface
         :param model_path: path of the model checkpoint.
         :param device: torch device, defaults to be CPU.
-        :param multiprocessing_enabled: uses multiprocessing to parallelize parts of the inference when enabled, defaults to False.
+        :param num_workers: number of workers for parallel processing, defaults to 1.
         """
         model_states = torch.load(model_path, map_location=torch.device('cpu'))
         args = self._get_args(model_states['args'])
