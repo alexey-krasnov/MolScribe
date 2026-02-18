@@ -121,12 +121,6 @@ class MolScribe:
         node_symbols = [pred['chartok_coords']['symbols'] for pred in predictions]
         edges = [pred['edges'] for pred in predictions]
 
-        # Dynamically adjust num_workers based on the number of images in list
-        if len(input_images) <= 100:
-            self.num_workers = 1
-        else:
-            self.num_workers = os.cpu_count()
-
         smiles_list, molblock_list, r_success = convert_graph_to_smiles(
             node_coords, node_symbols, edges, images=input_images, num_workers=self.num_workers)
 
