@@ -514,11 +514,8 @@ def _expand_functional_group(mol, mappings, debug=False):
         atoms_to_remove.sort(reverse=True)
         for i in atoms_to_remove:
             mol_w.RemoveAtom(i)
-
-        # Generate the updated molfile with expanded structure
-        mol = mol_w.GetMol()
-        AllChem.Compute2DCoords(mol)
         smiles = Chem.MolToSmiles(mol_w)
+        mol = mol_w.GetMol()
     else:
         smiles = Chem.MolToSmiles(mol)
     return smiles, mol
