@@ -16,6 +16,14 @@ from .tokenizer import get_tokenizer
 BOND_TYPES = ["", "single", "double", "triple", "aromatic", "solid wedge", "dashed wedge"]
 
 
+def _load_ckpt(path):
+    """torch.load with mmap: the optimizer/scheduler state in the file (2/3 of its size) is never paged into RAM."""
+    try:
+        return torch.load(path, map_location=torch.device('cpu'), mmap=True)
+    except Exception:  # legacy (non-zip) checkpoint: mmap unsupported
+        return torch.load(path, map_location=torch.device('cpu'))
+
+
 def safe_load(module, module_states):
     def remove_prefix(state_dict):
         return {k.replace('module.', ''): v for k, v in state_dict.items()}
@@ -32,7 +40,7 @@ class MolScribe:
         :param device: torch device, defaults to be CPU.
         :param num_workers: number of workers for parallel processing, defaults to 1.
         """
-        model_states = torch.load(model_path, map_location=torch.device('cpu'))
+        model_states = _load_ckpt(model_path)
         args = self._get_args(model_states['args'])
         if device is None:
             device = torch.device('cpu')
